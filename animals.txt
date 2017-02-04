@@ -1,9 +1,0 @@
-horse
-cow
-chicken
-whale
-seahorse
-dolphin
-monkey
-python
-bird of paradise
