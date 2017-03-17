@@ -12,17 +12,6 @@ Here is the badge for my repo's Travis Build:
 [![Build Status](https://travis-ci.org/tonypark0403/OSD600.svg?branch=master)](https://travis-ci.org/tonypark0403/OSD600)
 
 
-
-
-
-
-
-
-
-
-
-
-
 ## Introduction
 
 In this lab series we will explore a number of open source and GitHub tooling,

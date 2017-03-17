@@ -7,14 +7,10 @@
  */
 exports.isValidEmail = function(email) {
     // TODO: needs to be implemented
-    var validEmail = email.split('@');
-    if (validEmail[1].equals('myseneca.ca')){
-        return 'valid';
-    } else {
-        return 'invalid';
+    if (email.includes('@myseneca.ca')) {
+        return true;
     }
-    // emailRegex = /^\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})+$/;
-    // return emailRegex.test(email);
+    return false;
 };
 
 /**
