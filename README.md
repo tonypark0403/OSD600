@@ -3,36 +3,50 @@ Open source subject at Seneca
 
 My Blog : https://tonypark0403.wordpress.com
 
-Seneca 2017 Learning Lab
+# Seneca 2017 Learning Lab
 
-Introduction
+## Introduction
 
-In this lab series we will explore a number of open source and GitHub tooling, automation, and worflow options. You will learn about how to build node.js modules, how to use tools like linters, code formatters, how to use unit tests, how to do automated checks on your commits and pull requests, etc.
+In this lab series we will explore a number of open source and GitHub tooling,
+automation, and worflow options.  You will learn about how to build node.js modules,
+how to use tools like linters, code formatters, how to use unit tests, how to do automated
+checks on your commits and pull requests, etc.
 
-We will expand on this repo in the coming weeks, so it's important for you to finish each week's tasks before the next lab. If you get stuck, feel free to help one another. This is not a test, but a learning exercise.
+We will expand on this repo in the coming weeks, so it's important for you to finish
+each week's tasks before the next lab.  If you get stuck, feel free to help one another.
+This is not a test, but a learning exercise.
 
-Create a Repo
+## Create a Repo
 
-This repo will form the basis of our exploration of various open source tooling. Begin by creating a repo of your own similar to this one. Use https://github.com/new to create your new repo. Make sure you include the following:
+This repo will form the basis of our exploration of various open source tooling.
+Begin by creating a repo of your own similar to this one. Use https://github.com/new
+to create your new repo.  Make sure you include the following:
 
-Initialize with a README.me file
-Add a .gitignore for Node (e.g., node.js)
-Add a License using the MIT License
+* Initialize with a `README.me` file
+* Add a `.gitignore` for `Node` (e.g., node.js)
+* Add a `License` using the [MIT License](https://opensource.org/licenses/MIT)
+
 It will look something like this:
 
-Create New GitHub Repo
+![Create New GitHub Repo](screenshots/create-repo.png)
 
-Clone your repo
+## Clone your repo
 
 After you've created it on GitHub, you need to clone it locally:
 
+```bash
 $ git clone git@github.com:<github-username>/<repo-name>.git
-Initialize a new Node.js Module
+```
 
-You should already have node.js installed. If you don't, do it now.
+## Initialize a new Node.js Module
 
-Next use npm (NOTE: npm gets installed along with node.js) to initialize your package.json file:
+You should already have [node.js](https://nodejs.org/) installed.  If you don't,
+do it now.
 
+Next use [npm](https://docs.npmjs.com/) (NOTE: `npm` gets installed along with node.js)
+to initialize your `package.json` file:
+
+```bash
 $ npm init
 
 This utility will walk you through creating a package.json file.
@@ -78,8 +92,11 @@ About to write to /Users/dave/Sites/repos/Seneca2017LearningLab/package.json:
 
 
 Is this ok? (yes)
-Confirm that your package.json is correct, and edit it if not:
+```
 
+Confirm that your `package.json` is correct, and edit it if not:
+
+```bash
 $ cat package.json
 {
   "name": "lab7",
@@ -100,10 +117,14 @@ $ cat package.json
   },
   "homepage": "https://github.com/humphd/Seneca2017LearningLab#readme"
 }
-Create your Node.js Module in seneca.js
+```
 
-You need a file to contain your seneca module. Create a file named seneca.js, which should have the following code:
+## Create your Node.js Module in seneca.js
 
+You need a file to contain your `seneca` module.  Create a file named `seneca.js`,
+which should have the following code:
+
+```js
 // [INFO] See discussion of node.js exports here:
 // https://www.sitepoint.com/understanding-module-exports-exports-node-js/
 
@@ -122,14 +143,21 @@ exports.isValidEmail = function(email) {
 exports.formatSenecaEmail = function(name) {
     // TODO: needs to be implemented
 };
-Write an implementation of isValidEmail and formatSenecaEmail. You are only expected to validate and work with strings, you don't need to deal with sending or validating email addresses in general.
+```
 
-[Optional] Extra Challenge: Command Line Tool that uses seneca.js
+Write an implementation of `isValidEmail` and `formatSenecaEmail`.  You are
+only expected to validate and work with strings, you don't need to deal with
+sending or validating email addresses in general.
 
-If you want an extra challenge, it would be nice if there was an easy way to test your code from the command line.
+## [Optional] Extra Challenge: Command Line Tool that uses seneca.js
 
-You can easily write cross-platform command line tools in node.js. See if you can write a simple command line tool that works like so:
+If you want an extra challenge, it would be nice if there was an easy way to test
+your code from the command line.
 
+You can easily write cross-platform command line tools in node.js.  See if you can
+write a simple command line tool that works like so:
+
+```bash
 $ seneca --help
 
  Usage: seneca [options]
@@ -146,43 +174,72 @@ $ seneca -v student@gmail.com
 invalid
 $ seneca -f student
 student@myseneca.ca
+```
+
 A great tutorial on how to achieve something like this can be found at https://developer.atlassian.com/blog/2015/11/scripting-with-node/.
 
-Add ESLint to avoid common patterns and bugs
+## Add ESLint to avoid common patterns and bugs
 
-Linting your code is a great way to avoid various common problems. We'll use ESLint to find common issues and then manually correct them.
+Linting your code is a great way to avoid various common problems.  We'll use
+[ESLint](http://eslint.org/docs/user-guide/getting-started) to find common issues
+and then manually correct them.
 
-Begin by installing it via npm. We'll use --save-dev to add a development dependency (i.e., a dependency only needed when developing this code vs. using it). We'll also create a default eslint configuration (i.e., rules to check for in our code):
+Begin by installing it via `npm`.  We'll use `--save-dev` to add a development dependency
+(i.e., a dependency only needed when developing this code vs. using it).  We'll also create
+a default `eslint` configuration (i.e., rules to check for in our code):
 
+```bash
 $ npm install eslint --save-dev
-The eslint module is similar to what we're building. It will automatically get installed to a directory named node_modules. A node_modules/.bin hidden directory is also created with a so-called "binary" or executable version of eslint that can be run at the command-line:
+```
 
+The `eslint` module is similar to what we're building.  It will automatically get installed
+to a directory named `node_modules`.  A `node_modules/.bin` hidden directory is also created
+with a so-called "binary" or executable version of eslint that can be run at the command-line:
+
+```bash
 $ ls -a node_modules
 .      ..     .bin   eslint
-We need to create a configuration for eslint. Let's try using a "popular style guide", the Airbnb JavaScript rules. Run eslint --init and then cursor down to Use a popular style guide:
+```
 
+We need to create a configuration for `eslint`.  Let's try using a "popular style guide",
+the [Airbnb JavaScript rules](https://github.com/airbnb/javascript).  Run `eslint --init`
+and then cursor down to `Use a popular style guide`:
+
+```bash
 $ ./node_modules/.bin/eslint --init
 ? How would you like to configure ESLint?
   Answer questions about your style
 ❯ Use a popular style guide
   Inspect your JavaScript file(s)
-Cursor down to select Airbnb:
+```
 
+Cursor down to select `Airbnb`:
+
+```bash
 ? Which style guide do you want to follow?
   Google
 ❯ Airbnb
   Standard
+```
+
 When asked about React, answer No:
 
+```bash
 ? Do you use React? (y/N) N
+```
+
 Select JSON format for your eslint config file:
 
+```bash
 ? What format do you want your config file to be in?
   JavaScript
   YAML
 ❯ JSON
-Various npm modules will now be installed:
+```
 
+Various `npm` modules will now be installed:
+
+```bash
 Installing eslint-plugin-import, eslint-config-airbnb-base
 eslint-config-airbnb-base@11.1.1 node_modules/eslint-config-airbnb-base
 
@@ -198,23 +255,32 @@ eslint-plugin-import@2.2.0 node_modules/eslint-plugin-import
 ├── eslint-module-utils@2.0.0 (debug@2.2.0, pkg-dir@1.0.0)
 └── eslint-import-resolver-node@0.2.3 (object-assign@4.1.1, resolve@1.3.2)
 Successfully created .eslintrc.json file in /Users/dave/Sites/repos/Seneca2017LearningLab
-You now have a new file .eslintrc.json which has the rules you want eslint to follow:
+```
 
+You now have a new file `.eslintrc.json` which has the rules you want `eslint` to follow:
+
+```json
 {
     "extends": "airbnb-base",
     "plugins": [
         "import"
     ]
 }
-Your package.json will also have new devDependencies entries:
+```
 
+Your `package.json` will also have new `devDependencies` entries:
+
+```json
 "devDependencies": {
   "eslint": "^3.17.1",
   "eslint-config-airbnb-base": "^11.1.1",
   "eslint-plugin-import": "^2.2.0"
 }
-Try running eslint on your code manually:
+```
 
+Try running `eslint` on your code manually:
+
+```bash
 $ ./node_modules/.bin/eslint seneca.js
 
 /Users/dave/Sites/repos/Seneca2017LearningLab/seneca.js
@@ -226,46 +292,69 @@ $ ./node_modules/.bin/eslint seneca.js
   13:38  error    'name' is defined but never used           no-unused-vars
 
 ✖ 6 problems (4 errors, 2 warnings)
-You can read about the various rules and warnings in the eslint docs, for example: http://eslint.org/docs/rules/space-before-function-paren or http://eslint.org/docs/rules/no-unused-vars
+```
 
-Feel free to experiment with different .eslintrc.json options, or try other style guides. There's nothing sacred about Airbnb's, and you can even write your own to match your own style.
+You can read about the various rules and warnings in the `eslint docs`, for example:
+http://eslint.org/docs/rules/space-before-function-paren or http://eslint.org/docs/rules/no-unused-vars
 
-Automate our Lint Checking
+Feel free to experiment with different `.eslintrc.json` options, or try other style guides.
+There's nothing sacred about Airbnb's, and you can even write your own to match your own style.
 
-Since we'll want to check our code every time we make changes, it's nice to automate the call to eslint and make a script that we can run. We can add scripts to our package.json file, which are then runnable via npm.
+## Automate our Lint Checking
 
-Modify the scripts section of your package.json to add a lint task, and update the test task to run this task, passing -s for silent mode (keep npm from spitting out debug info):
+Since we'll want to check our code every time we make changes, it's nice to automate the
+call to `eslint` and make a script that we can run.  We can add scripts to our `package.json`
+file, which are then runnable via `npm`.
 
+Modify the `scripts` section of your `package.json` to add a `lint` task, and update the
+`test` task to run this task, passing `-s` for silent mode (keep `npm` from spitting out
+debug info):
+
+```json
 "scripts": {
   "lint": "node_modules/.bin/eslint *.js",
   "test": "npm run -s lint"
 }
-Use TravisCI for Continuous Integration
+```
 
-Now that we have the basics of our code infrastructure set up, we can use a continuous integration service named Travis CI to help us run these checks every time we do a new commit or someone creates a pull request. Travis CI is free to use for open source projects. It will automatically clone our repo, checkout our branch and run any tests we specify.
+## Use TravisCI for Continuous Integration
 
-Follow the Getting started guide and the Building a Node.js project docs to do the following:
+Now that we have the basics of our code infrastructure set up, we can use
+a continuous integration service named [Travis CI](https://travis-ci.org/) to help us run these
+checks every time we do a new commit or someone creates a pull request.  Travis CI is
+free to use for open source projects.  It will automatically clone our repo, checkout our branch
+and run any tests we specify.
 
-Sign in to Travis CI with your GitHub account
-Enable Travis CI integration with your GitHub account for this repo in your profile page
-Create a .travis.yml file for a node project. It will automatically run your npm test command. You can specify "node" as your node.js version to use the latest stable version of node. You can look at how I did my .travis.yml file as an example.
-Push a new commit to your repo's master branch to start a build on Travis. You can check your builds at https://travis-ci/profile//. For example, here is my repo's Travis build page: https://travis-ci.org/humphd/Seneca2017LearningLab
+Follow the [Getting started](https://docs.travis-ci.com/user/getting-started/) guide and the
+[Building a Node.js project](https://docs.travis-ci.com/user/languages/javascript-with-nodejs/) docs
+to do the following:
+
+* [Sign in to Travis CI](https://docs.travis-ci.com/user/getting-started/) with your GitHub account
+* Enable Travis CI integration with your GitHub account for this repo in your [profile page](https://travis-ci.org/profile)
+* Create a `.travis.yml` file for a [`node` project](https://docs.travis-ci.com/user/languages/javascript-with-nodejs/).  It will automatically run your `npm test` command.  You can specify `"node"` as your node.js version to use the latest stable version of node.  You can look at how I did my [`.travis.yml`](.travis.yml) file as an example.
+* Push a new commit to your repo's `master` branch to start a build on Travis. You can check
+your builds at https://travis-ci/profile/<git-username>/<repo-name>.  For example, here is my repo's
+Travis build page: https://travis-ci.org/humphd/Seneca2017LearningLab
+
 Get your build to pass by fixing any errors or warnings that you have.
 
-Add a Travis CI Build Badge to your README
+## Add a Travis CI Build Badge to your README
 
-You can have Travis CI automatically indicate whether your current code is passing or failing by adding a badge to your README.md file. Instructions on how to do it are here:
+You can have Travis CI automatically indicate whether your current code is passing or failing
+by adding a badge to your `README.md` file.  Instructions on how to do it are here:
 
 https://docs.travis-ci.com/user/status-images/
 
 Here is the badge for my repo's Travis Build:
 
-Build Status
+[![Build Status](https://travis-ci.org/humphd/Seneca2017LearningLab.svg?branch=master)](https://travis-ci.org/humphd/Seneca2017LearningLab)
 
 My build is failing because I have not fixed the eslint errors and warnings for my code.
 
-[Optional] Other Things to Try
+## [Optional] Other Things to Try
 
-Switch to a more complete build system or task runner (gulp, grunt, etc.)
-Integrate eslint into your editor so that it automatically reads your .eslintrc.json and suggests warnings and errors as you type your code
-See if there are any existing npm modules that could help you write your code above, for example, email address modules, and use them.
+* Switch to a more complete [build system or task runner (gulp, grunt, etc.](https://www.slant.co/topics/1276/~node-js-build-systems-task-runners))
+* Integrate `eslint` into your editor so that it automatically reads your `.eslintrc.json`
+and suggests warnings and errors as you type your code
+* See if there are any existing `npm` modules that could help you write your code above,
+for example, email address modules, and use them.
